@@ -1,10 +1,7 @@
 import React from "react";
 import { Instagram, Linkedin } from "lucide-react";
-<<<<<<< HEAD
-=======
 import emailjs from "emailjs-com";
 
->>>>>>> 78ea3883f5ca843b8d46997dc6ae303ea7988e88
 
 const PortfolioWebsite = () => {
   // Set up state for the form
