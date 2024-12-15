@@ -40,7 +40,7 @@ const PortfolioWebsite = () => {
     emailjs
       .send(
         "service_1czvm6r", // Your EmailJS service ID
-        "template_0968m5s", // Your EmailJS template ID
+        "template_wrlgqr4", // Your EmailJS template ID
         {
           name: formData.name,
           email: formData.email,
