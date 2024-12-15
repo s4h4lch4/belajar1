@@ -126,7 +126,7 @@ const PortfolioWebsite = () => {
       <section className="py-20 bg-gray-800">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-10">My Experience</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="grid grid-cols-1 md:grid-cols-1 gap-10 text-center">
             {Array.from({ length: 1 }, (_, index) => (
               <div
                 key={index}
