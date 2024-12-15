@@ -39,14 +39,14 @@ const PortfolioWebsite = () => {
     // Call EmailJS service to send the form data to your email
     emailjs
       .send(
-        service_1czvm6r, // Your EmailJS service ID
-        template_gknjfa6, // Your EmailJS template ID
+        "service_1czvm6r", // Your EmailJS service ID
+        "template_0968m5s", // Your EmailJS template ID
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
         },
-        hZVtKIrT5Q2N3JWq_ // Your EmailJS user ID
+        "hZVtKIrT5Q2N3JWq_" // Your EmailJS user ID
       )
       .then(
         (result) => {
