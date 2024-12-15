@@ -1,17 +1,18 @@
-import React from "react";
 import { Instagram, Linkedin } from "lucide-react";
 import emailjs from "emailjs-com"; // We'll use EmailJS for email sending
-
-
-
+import React, { useState } from "react";
 
 const PortfolioWebsite = () => {
-   // Set up state for the form
-   const [formData, setFormData] = useState({
-    name: "Your Name",
-    email: "email",
-    message: "Your Massage",
+
+  // Set up state for the form
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
   });
+
+  const [statusMessage, setStatusMessage] = useState(""); // For feedback messages
+  const [isSubmitting, setIsSubmitting] = useState(false); // To handle button state
 
   // Handle input changes
   const handleChange = (e) => {
@@ -26,26 +27,42 @@ const PortfolioWebsite = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // Basic validation
+    if (!formData.name || !formData.email || !formData.message) {
+      alert("All fields are required!");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setStatusMessage("");
+
     // Call EmailJS service to send the form data to your email
     emailjs
-      .sendForm(
-        service_1czvm6r, // Your EmailJS service ID
-        template_gknjfa6, // Your EmailJS template ID
-        e.target,
-        hZVtKIrT5Q2N3JWq_ // Your EmailJS user ID
+      .send(
+        "service_1czvm6r", // Your EmailJS service ID
+        "template_gknjfa6", // Your EmailJS template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        },
+        "hZVtKIrT5Q2N3JWq_" // Your EmailJS user ID
       )
       .then(
         (result) => {
           console.log("Message Sent: ", result.text);
-          alert("Your message has been sent!");
+          setStatusMessage("Your message has been sent successfully!");
+          setFormData({ name: "", email: "", message: "" }); // Clear form after success
         },
         (error) => {
           console.log("Error: ", error.text);
-          alert("Oops! Something went wrong.");
+          setStatusMessage("Oops! Something went wrong.");
         }
-      );
+      )
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
-
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
@@ -97,7 +114,7 @@ const PortfolioWebsite = () => {
             <div>
               <h3 className="text-2xl font-semibold mb-4">Education</h3>
               <p className="text-gray-400">
-                Sarjana Ekonomi (Internastional Management Program)
+                Sarjana Ekonomi (International Management Program)
                 <br />
                 Universitas Syiah Kuala
               </p>
@@ -118,26 +135,10 @@ const PortfolioWebsite = () => {
               >
                 <h3 className="text-xl font-bold mb-4" >Project Based Associate Consultant - SKHA Consulting </h3>
                 <p className="text-gray-400 mb-4">
-                    
                   Collaborated with the team to analyze internal and external factors, including 
                   market trends, competitive landscape, and organizational capabilities, to develop 
                   the company’s Rencana Jangka Panjang Perusahaan (RJPP) (Corporate Long-Term Plan). 
-                  
                 </p>
-                <div className="mt-6 flex justify-center space-x-6">
-                  <a
-                    href="#"
-                    className="text-blue-500 hover:text-blue-400 transition"
-                  >
-                   
-                  </a>
-                  <a
-                    href="#"
-                    className="text-blue-500 hover:text-blue-400 transition"
-                  >
-                    
-                  </a>
-                </div>
               </div>
             ))}
           </div>
@@ -148,38 +149,51 @@ const PortfolioWebsite = () => {
       <section className="py-20 bg-gray-900">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl font-bold mb-10">Contact Me</h2>
-          <form className="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
+          <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-gray-800 p-8 rounded-lg shadow-lg">
             <div className="mb-6">
               <input
                 type="text"
+                name="name"
                 placeholder="Your Name"
+                value={formData.name}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div className="mb-6">
               <input
                 type="email"
+                name="email"
                 placeholder="Your Email"
+                value={formData.email}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
             <div className="mb-6">
               <textarea
+                name="message"
                 placeholder="Your Message"
                 rows="4"
+                value={formData.message}
+                onChange={handleChange}
                 className="w-full px-4 py-3 bg-gray-700 text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               ></textarea>
             </div>
             <button
               type="submit"
-              className="w-full py-3 bg-blue-600 hover:bg-blue-500 text-white rounded-lg shadow-md focus:outline-none transition"
+              disabled={isSubmitting}
+              className={`w-full py-3 text-white rounded-lg shadow-md focus:outline-none transition ${isSubmitting ? "bg-gray-500" : "bg-blue-600 hover:bg-blue-500"}`}
             >
-              Send Message
+              {isSubmitting ? "Sending..." : "Send Message"}
             </button>
           </form>
+          {statusMessage && (
+            <p className="mt-4 text-gray-400">{statusMessage}</p>
+          )}
         </div>
       </section>
-
+      
       {/* Footer Section */}
       <footer className="bg-gray-800 py-6">
         <div className="container mx-auto text-center">
