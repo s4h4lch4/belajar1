@@ -1,49 +1,8 @@
 import React from "react";
 import { Instagram, Linkedin } from "lucide-react";
-import emailjs from "emailjs-com";
 
 
 const PortfolioWebsite = () => {
-  // Set up state for the form
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Call EmailJS service to send the form data to your email
-    emailjs
-      .sendForm(
-        service_1czvm6r, // Your EmailJS service ID
-        template_wrlgqr4, // Your EmailJS template ID
-        e.target,
-        j8Z_npC1riNGnS1ZFmG_e // Your EmailJS user ID
-      )
-      .then(
-        (result) => {
-          console.log("Message Sent: ", result.text);
-          alert("Your message has been sent!");
-        },
-        (error) => {
-          console.log("Error: ", error.text);
-          alert("Oops! Something went wrong.");
-        }
-      );
-  };
-
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
       {/* Header Section */}
