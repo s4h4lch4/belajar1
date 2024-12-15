@@ -39,14 +39,14 @@ const PortfolioWebsite = () => {
     // Call EmailJS service to send the form data to your email
     emailjs
       .send(
-        "service_1czvm6r", // Your EmailJS service ID
-        "template_gknjfa6", // Your EmailJS template ID
+        service_1czvm6r, // Your EmailJS service ID
+        template_gknjfa6, // Your EmailJS template ID
         {
           name: formData.name,
           email: formData.email,
           message: formData.message,
         },
-        "hZVtKIrT5Q2N3JWq_" // Your EmailJS user ID
+        hZVtKIrT5Q2N3JWq_ // Your EmailJS user ID
       )
       .then(
         (result) => {
@@ -193,7 +193,7 @@ const PortfolioWebsite = () => {
           )}
         </div>
       </section>
-      
+
       {/* Footer Section */}
       <footer className="bg-gray-800 py-6">
         <div className="container mx-auto text-center">
