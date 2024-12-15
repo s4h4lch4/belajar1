@@ -3,7 +3,6 @@ import emailjs from "emailjs-com"; // We'll use EmailJS for email sending
 import React, { useState } from "react";
 
 const PortfolioWebsite = () => {
-
   // Set up state for the form
   const [formData, setFormData] = useState({
     name: "",
@@ -42,9 +41,9 @@ const PortfolioWebsite = () => {
         "service_1czvm6r", // Your EmailJS service ID
         "template_wrlgqr4", // Your EmailJS template ID
         {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
+          name: formData.name, // Pass template variable for name
+          email: formData.email, // Pass template variable for email
+          message: formData.message, // Pass template variable for message
         },
         "hZVtKIrT5Q2N3JWq_" // Your EmailJS user ID
       )
